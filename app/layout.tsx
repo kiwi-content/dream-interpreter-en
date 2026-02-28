@@ -33,6 +33,12 @@ export const metadata: Metadata = {
     type: 'website',
   },
 
+  icons: {
+    icon: '/icon.png',
+    shortcut: '/icon.png',
+    apple: '/icon.png',
+  },
+
   robots: { index: true, follow: true },
 }
 
