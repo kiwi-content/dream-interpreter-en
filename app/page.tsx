@@ -26,6 +26,18 @@ const reviews = [
   { text: 'I check every morning lol', stars: 4 },
 ]
 
+function getHomeAnchorText(name: string, index: number): string {
+  const topic = name.toLowerCase().includes('dream') ? name.toLowerCase() : `${name.toLowerCase()} dream`
+  const variants = [
+    `${name} meaning`,
+    `What does this ${topic} mean?`,
+    `${name} interpretation`,
+    `${name} symbols explained`,
+    `Read about ${topic}`,
+  ]
+  return variants[index % variants.length]
+}
+
 export default function Home() {
   const [messages, setMessages] = useState<Message[]>([{ role: 'assistant', content: INITIAL_MESSAGE }])
   const [input, setInput] = useState('')
@@ -342,7 +354,7 @@ export default function Home() {
                   className="flex items-center gap-2 px-3 py-2.5 rounded-lg bg-amber-900/15 hover:bg-amber-800/25 border border-amber-200/20 hover:border-amber-200/40 text-amber-50/90 transition-all duration-300 text-xs font-medium backdrop-blur-sm"
                 >
                   {i < 3 && <span className="text-sm">{['🥇', '🥈', '🥉'][i]}</span>}
-                  <span>{item.name}</span>
+                  <span>{getHomeAnchorText(item.name, i)}</span>
                 </Link>
               ))}
             </div>

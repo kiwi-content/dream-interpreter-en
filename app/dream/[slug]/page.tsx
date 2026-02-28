@@ -61,6 +61,7 @@ function buildDreamContent(config: DreamConfig): string {
 
 function buildFAQs(config: DreamConfig): FAQItem[] {
   const dreamName = config.name.toLowerCase()
+  const keywordPhrase = config.keyword.includes('dream') ? config.keyword : `${config.keyword} dream`
 
   return [
     {
@@ -83,7 +84,27 @@ function buildFAQs(config: DreamConfig): FAQItem[] {
       question: 'What should I do right after having this dream?',
       answer: `Capture the key image and emotion in one sentence before it fades, then take one grounded action. ${config.actionTip} The action matters more than perfect interpretation.`,
     },
+    {
+      question: `Why do I keep having a ${keywordPhrase} during stressful weeks?`,
+      answer: `Stress lowers your mental filters, so unresolved themes surface faster in sleep. A repeated ${keywordPhrase} is usually your nervous system highlighting ${config.symbol}, not random noise. Use the pattern as a timing clue: your inner load is high and needs one concrete adjustment.`,
+    },
+    {
+      question: `What does a ${keywordPhrase} mean if I wake up anxious at night?`,
+      answer: `Night-waking plus strong dream recall usually means the emotional signal is intense. When the dream still feels like ${config.sensory}, your body is asking for regulation and clarity, not panic. Ground first, then act on one specific step from this message: ${config.actionTip}`,
+    },
   ]
+}
+
+function getRelatedAnchorText(name: string, index: number): string {
+  const topic = name.toLowerCase().includes('dream') ? name.toLowerCase() : `${name.toLowerCase()} dream`
+  const variants = [
+    `${name} meaning`,
+    `What this ${topic} means`,
+    `${name} interpretation`,
+    `${name} symbols explained`,
+    `Read this ${topic} guide`,
+  ]
+  return variants[index % variants.length]
 }
 
 const dreamConfigs: DreamConfig[] = [
@@ -1592,13 +1613,13 @@ export default function DreamDetailPage({ params }: { params: { slug: string } }
 
       <SectionCard label="Related Dreams" icon="🔗">
         <div className="grid sm:grid-cols-2 gap-2">
-          {relatedDreams.map((item) => (
+          {relatedDreams.map((item, index) => (
             <Link
               key={item.slug}
               href={`/dream/${item.slug}`}
               className="px-3 py-2.5 rounded-lg bg-amber-900/20 hover:bg-amber-800/30 border border-amber-200/20 hover:border-amber-200/40 text-amber-50/90 text-sm transition-colors"
             >
-              {item.name}
+              {getRelatedAnchorText(item.name, index)}
             </Link>
           ))}
         </div>
