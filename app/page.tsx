@@ -64,6 +64,7 @@ export default function Home() {
   const [todayCount, setTodayCount] = useState(0)
   const [signalIndex, setSignalIndex] = useState(0)
   const [todayLabel, setTodayLabel] = useState('')
+  const [signalTimeLabel, setSignalTimeLabel] = useState('')
   const bottomRef = useRef<HTMLDivElement>(null)
   const lastMsgRef = useRef<HTMLDivElement>(null)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
@@ -122,9 +123,14 @@ export default function Home() {
     setTodayLabel(
       new Intl.DateTimeFormat('en-US', {
         weekday: 'short',
-        month: 'long',
+        month: 'short',
         day: 'numeric',
-        year: 'numeric',
+      }).format(now)
+    )
+    setSignalTimeLabel(
+      new Intl.DateTimeFormat('en-US', {
+        hour: 'numeric',
+        minute: '2-digit',
       }).format(now)
     )
     setSignalIndex(Math.floor(Math.random() * subconsciousSignals.length))
@@ -229,12 +235,24 @@ export default function Home() {
             </div>
 
             <div className="justify-self-start rounded-[26px] border-2 border-black/85 bg-[#f9faf2] p-4 shadow-[0_6px_0_0_rgba(0,0,0,0.15)] lg:justify-self-end">
-              <div className="w-[210px] rounded-2xl border-2 border-black/80 bg-white p-3 shadow-[0_4px_0_0_rgba(0,0,0,0.12)]">
-                <p className="text-[10px] font-semibold uppercase tracking-wide text-black/45">Today&apos;s subconscious signal</p>
-                <p className="mt-1 text-[11px] font-medium text-[#0f766e]">{todayLabel || 'Today'}</p>
-                <p className="mt-1.5 text-xs font-semibold leading-relaxed text-black/80">
-                  {subconsciousSignals[signalIndex]}
-                </p>
+              <div className="w-[220px] overflow-hidden rounded-2xl border-2 border-black/80 bg-[#f8fafc] shadow-[0_4px_0_0_rgba(0,0,0,0.12)]">
+                <div className="flex items-center justify-between border-b-2 border-black/70 px-2.5 py-2">
+                  <div className="flex items-center gap-1.5">
+                    <span className="flex h-5 w-5 items-center justify-center rounded-full border border-black/70 bg-white text-[11px]">
+                      💭
+                    </span>
+                    <p className="text-[11px] font-semibold text-black/75">Dream</p>
+                  </div>
+                  <p className="text-[10px] font-semibold text-black/45">{todayLabel || 'Today'}</p>
+                </div>
+                <div className="space-y-2 px-2.5 py-2.5">
+                  <div className="neo-chip-gradient ml-5 rounded-2xl rounded-br-md border-2 border-black/70 px-3 py-2 text-[11px] font-semibold leading-relaxed text-white shadow-[0_2px_0_0_rgba(0,0,0,0.1)]">
+                    {subconsciousSignals[signalIndex]}
+                  </div>
+                  <p className="text-right text-[10px] font-medium text-black/45">
+                    Delivered · {signalTimeLabel || 'Now'}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
