@@ -193,9 +193,9 @@ export default function Home() {
                 ✨ Free forever · No sign-up
               </div>
               <h1 className="font-neo-serif text-[44px] leading-[0.95] tracking-[-0.03em] text-[#102228] sm:text-[72px] lg:text-[94px]">
-                What is your
+                Your subconscious
                 <br />
-                dream telling you?
+                is texting you.
               </h1>
               <div className="mt-5 text-6xl sm:text-7xl">🔮</div>
             </div>
