@@ -184,15 +184,15 @@ export default function Home() {
   const isLanding = messages.length === 1
 
   return (
-    <div className="font-neo-sans min-h-screen bg-[#e9e9ee] text-[#111217]">
+    <div className="font-neo-sans min-h-screen bg-[#e8f0ee] text-[#111217]">
       <div className="mx-auto max-w-6xl px-4 pb-14 pt-7 sm:px-8 sm:pb-20 sm:pt-10">
-        <section className="rounded-[30px] border-2 border-black/85 bg-[#efeff3] p-5 shadow-[0_8px_0_0_rgba(0,0,0,0.28)] sm:p-8">
+        <section className="rounded-[30px] border-2 border-black/85 bg-[#f5fbf9] p-5 shadow-[0_8px_0_0_rgba(0,0,0,0.28)] sm:p-8">
           <div className="grid items-start gap-7 lg:grid-cols-[1fr_170px]">
             <div>
               <div className="mb-5 inline-flex items-center rounded-full border-2 border-black/85 bg-white px-4 py-1.5 text-xs font-semibold">
                 ✨ Free forever · No sign-up
               </div>
-              <h1 className="font-neo-serif text-[44px] leading-[0.95] tracking-[-0.03em] text-[#12141a] sm:text-[72px] lg:text-[94px]">
+              <h1 className="font-neo-serif text-[44px] leading-[0.95] tracking-[-0.03em] text-[#102228] sm:text-[72px] lg:text-[94px]">
                 What is your
                 <br />
                 dream telling you?
@@ -200,7 +200,7 @@ export default function Home() {
               <div className="mt-5 text-6xl sm:text-7xl">🔮</div>
             </div>
 
-            <div className="justify-self-start rounded-[26px] border-2 border-black/85 bg-[#f7f7fb] p-4 shadow-[0_6px_0_0_rgba(0,0,0,0.15)] lg:justify-self-end">
+            <div className="justify-self-start rounded-[26px] border-2 border-black/85 bg-[#f9faf2] p-4 shadow-[0_6px_0_0_rgba(0,0,0,0.15)] lg:justify-self-end">
               <div className="neo-chip-gradient flex h-[124px] w-[124px] items-center justify-center rounded-full border-2 border-black/80">
                 <svg viewBox="0 0 120 120" className="h-[88px] w-[88px]" role="img" aria-label="Dream icon">
                   <path
@@ -223,7 +223,7 @@ export default function Home() {
 
           {isLanding && (
             <div className="mt-7 inline-flex items-center gap-2 rounded-full border-2 border-black/80 bg-white px-4 py-2 text-sm">
-              <span className="h-2.5 w-2.5 animate-pulse rounded-full bg-[#ff2a83]" />
+              <span className="h-2.5 w-2.5 animate-pulse rounded-full bg-[#0f766e]" />
               <span>
                 <span className="font-bold text-[#111217]">{todayCount.toLocaleString()}</span> dreams interpreted
                 today
@@ -232,12 +232,12 @@ export default function Home() {
           )}
         </section>
 
-        <section className="mt-6 overflow-hidden rounded-[30px] border-2 border-black/85 bg-[#f8f6ef] shadow-[0_8px_0_0_rgba(0,0,0,0.2)]">
+        <section className="mt-6 overflow-hidden rounded-[30px] border-2 border-black/85 bg-[#f3faf8] shadow-[0_8px_0_0_rgba(0,0,0,0.2)]">
           <div className="flex items-center justify-between border-b-2 border-black/80 px-4 py-2.5 sm:px-6">
             <div className="flex items-center gap-2">
-              <span className="h-3 w-3 rounded-full border border-black/80 bg-[#ff5f57]" />
-              <span className="h-3 w-3 rounded-full border border-black/80 bg-[#ffbd2e]" />
-              <span className="h-3 w-3 rounded-full border border-black/80 bg-[#28c840]" />
+              <span className="h-3 w-3 rounded-full border border-black/80 bg-[#0d9488]" />
+              <span className="h-3 w-3 rounded-full border border-black/80 bg-[#2563eb]" />
+              <span className="h-3 w-3 rounded-full border border-black/80 bg-[#d97706]" />
             </div>
             <p className="text-xs font-semibold text-black/70">Dream Console</p>
           </div>
@@ -248,7 +248,7 @@ export default function Home() {
               aria-hidden="true"
               style={{
                 backgroundImage:
-                  'linear-gradient(to right, rgba(0,0,0,0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.06) 1px, transparent 1px)',
+                  'linear-gradient(to right, rgba(15,118,110,0.09) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px)',
                 backgroundSize: '30px 30px',
               }}
             />
@@ -367,11 +367,11 @@ export default function Home() {
 
         {isLanding && (
           <section className="mt-6 grid gap-4 lg:grid-cols-2">
-            <div className="rounded-[24px] border-2 border-black/85 bg-[#f4f4f8] p-5 shadow-[0_6px_0_0_rgba(0,0,0,0.18)]">
+            <div className="rounded-[24px] border-2 border-black/85 bg-[#ebf5f2] p-5 shadow-[0_6px_0_0_rgba(0,0,0,0.18)]">
               <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-black/50">User reviews</p>
               <div className="rounded-2xl border-2 border-black/80 bg-white p-4">
                 <div className={reviewFading ? 'review-exit' : 'review-enter'}>
-                  <div className="mb-1 text-sm text-[#ff2a83]">
+                  <div className="mb-1 text-sm text-[#0f766e]">
                     {'★'.repeat(reviews[reviewIndex].stars)}{'☆'.repeat(5 - reviews[reviewIndex].stars)}
                   </div>
                   <p className="text-sm font-semibold text-black/80">&ldquo;{reviews[reviewIndex].text}&rdquo;</p>
@@ -379,7 +379,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="rounded-[24px] border-2 border-black/85 bg-[#f4f4f8] p-5 shadow-[0_6px_0_0_rgba(0,0,0,0.18)]">
+            <div className="rounded-[24px] border-2 border-black/85 bg-[#ebf5f2] p-5 shadow-[0_6px_0_0_rgba(0,0,0,0.18)]">
               <h2 className="mb-4 text-lg font-bold text-black/85">Popular Dream Meanings</h2>
               <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                 {dreamKeywords.map((item, i) => (
