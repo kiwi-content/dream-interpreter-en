@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500;6..96,700&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Sora:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -122,6 +122,18 @@
     background: linear-gradient(90deg, rgb(255, 251, 235) 0%, rgb(254, 243, 199) 50%, rgb(255, 251, 235) 100%);
     background-size: 200% 100%;
     animation: amberGlow 2.5s ease-in-out infinite, inputShimmer 3.5s ease-in-out infinite;
+  }
+
+  .font-neo-sans {
+    font-family: 'Sora', sans-serif;
+  }
+
+  .font-neo-serif {
+    font-family: 'Bodoni Moda', serif;
+  }
+
+  .neo-chip-gradient {
+    background: linear-gradient(125deg, #9f61e6 0%, #ff008c 55%, #ff6b4a 100%);
   }
 }
 

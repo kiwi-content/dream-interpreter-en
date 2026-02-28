@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 
 type Message = {
@@ -53,7 +53,6 @@ export default function Home() {
   const lastMsgRef = useRef<HTMLDivElement>(null)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
 
-  // URL ?q= parameter support
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
     const q = params.get('q')
@@ -63,7 +62,6 @@ export default function Home() {
     }
   }, [])
 
-  // Typing animation
   useEffect(() => {
     if (messages.length > 1) return
     let i = 0
@@ -78,7 +76,6 @@ export default function Home() {
     return () => clearInterval(timer)
   }, [messages.length])
 
-  // Stats count-up animation
   useEffect(() => {
     const base = 800 + Math.floor(Math.random() * 600)
     let current = 0
@@ -94,7 +91,6 @@ export default function Home() {
     return () => clearInterval(timer)
   }, [])
 
-  // Review auto-rotate
   useEffect(() => {
     const timer = setInterval(() => {
       setReviewFading(true)
@@ -188,179 +184,208 @@ export default function Home() {
   const isLanding = messages.length === 1
 
   return (
-    <div className="min-h-screen flex flex-col max-w-2xl mx-auto">
-      {/* Hero */}
-      <div className="text-center px-6 pt-12 pb-4 animate-fade-in-up">
-        <div className="inline-block mb-4 px-6 py-2 rounded-full bg-amber-900/20 backdrop-blur-sm border border-amber-200/30">
-          <span className="text-sm font-medium text-amber-100">✨ Always free · No sign-up</span>
-        </div>
-        <h1 className="hero-title mb-6">
-          What is your
-          <br />
-          dream telling you?
-        </h1>
-        <div className="text-7xl crystal-glow inline-block">🔮</div>
-      </div>
-
-      {/* Live stats */}
-      {isLanding && (
-        <div className="text-center pb-6 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-sm border border-white/10">
-            <span className="w-2 h-2 rounded-full bg-green-400 live-dot" />
-            <span className="text-white/60 text-sm">
-              <span className="text-amber-200 font-bold">{todayCount.toLocaleString()}</span> dreams interpreted today
-            </span>
-          </div>
-        </div>
-      )}
-
-      {/* Messages + inline input */}
-      <div className="flex-1 px-4 pb-6 space-y-4">
-        {messages.map((msg, i) => (
-          <div
-            key={i}
-            ref={i === messages.length - 1 ? lastMsgRef : null}
-            className={`flex items-end gap-2 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
-          >
-            {msg.role === 'assistant' && <div className="text-xl crystal-glow mb-1 shrink-0">🔮</div>}
-            <div className={`max-w-[78%] flex flex-col gap-1 ${msg.role === 'user' ? 'items-end' : 'items-start'}`}>
-              <div
-                className={`
-                px-4 py-3 text-sm leading-relaxed whitespace-pre-wrap
-                ${
-                  msg.role === 'user'
-                    ? 'bg-amber-600/80 text-white rounded-2xl rounded-br-md'
-                    : 'bg-white/10 backdrop-blur-sm text-white/90 rounded-2xl rounded-bl-md border border-white/10'
-                }
-              `}
-              >
-                {msg.role === 'assistant' && i === 0 && !isTypingDone ? (
-                  <>
-                    {typedText}
-                    <span className="inline-block w-0.5 h-4 bg-amber-200/80 ml-0.5 animate-pulse align-middle" />
-                  </>
-                ) : (
-                  msg.content
-                )}
+    <div className="font-neo-sans min-h-screen bg-[#e9e9ee] text-[#111217]">
+      <div className="mx-auto max-w-6xl px-4 pb-14 pt-7 sm:px-8 sm:pb-20 sm:pt-10">
+        <section className="rounded-[30px] border-2 border-black/85 bg-[#efeff3] p-5 shadow-[0_8px_0_0_rgba(0,0,0,0.28)] sm:p-8">
+          <div className="grid items-start gap-7 lg:grid-cols-[1fr_170px]">
+            <div>
+              <div className="mb-5 inline-flex items-center rounded-full border-2 border-black/85 bg-white px-4 py-1.5 text-xs font-semibold">
+                ✨ Free forever · No sign-up
               </div>
-              {msg.role === 'assistant' && i > 0 && (
-                <div className="flex gap-3 px-1">
+              <h1 className="font-neo-serif text-[44px] leading-[0.95] tracking-[-0.03em] text-[#12141a] sm:text-[72px] lg:text-[94px]">
+                Dream Oracle
+                <br />
+                AI
+              </h1>
+              <p className="mt-5 max-w-3xl text-[24px] font-semibold leading-[1.2] text-[#1c1f28] sm:text-[40px]">
+                The smart dream assistant built right in your browser. Ask anything, get sharp meanings, keep your
+                story private.
+              </p>
+            </div>
+
+            <div className="justify-self-start rounded-[26px] border-2 border-black/85 bg-[#f7f7fb] p-4 shadow-[0_6px_0_0_rgba(0,0,0,0.15)] lg:justify-self-end">
+              <div className="neo-chip-gradient flex h-[124px] w-[124px] items-center justify-center rounded-full border-2 border-black/80 text-5xl text-white">
+                ✦
+              </div>
+            </div>
+          </div>
+
+          {isLanding && (
+            <div className="mt-7 inline-flex items-center gap-2 rounded-full border-2 border-black/80 bg-white px-4 py-2 text-sm">
+              <span className="h-2.5 w-2.5 animate-pulse rounded-full bg-[#ff2a83]" />
+              <span>
+                <span className="font-bold text-[#111217]">{todayCount.toLocaleString()}</span> dreams interpreted
+                today
+              </span>
+            </div>
+          )}
+        </section>
+
+        <section className="mt-6 overflow-hidden rounded-[30px] border-2 border-black/85 bg-[#f8f6ef] shadow-[0_8px_0_0_rgba(0,0,0,0.2)]">
+          <div className="flex items-center justify-between border-b-2 border-black/80 px-4 py-2.5 sm:px-6">
+            <div className="flex items-center gap-2">
+              <span className="h-3 w-3 rounded-full border border-black/80 bg-[#ff5f57]" />
+              <span className="h-3 w-3 rounded-full border border-black/80 bg-[#ffbd2e]" />
+              <span className="h-3 w-3 rounded-full border border-black/80 bg-[#28c840]" />
+            </div>
+            <p className="text-xs font-semibold text-black/70">Dream Console</p>
+          </div>
+
+          <div className="relative px-3 pb-4 pt-4 sm:px-6 sm:pb-6 sm:pt-6">
+            <div
+              className="pointer-events-none absolute inset-0 opacity-60"
+              aria-hidden="true"
+              style={{
+                backgroundImage:
+                  'linear-gradient(to right, rgba(0,0,0,0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.06) 1px, transparent 1px)',
+                backgroundSize: '30px 30px',
+              }}
+            />
+
+            <div className="relative space-y-4">
+              {messages.map((msg, i) => (
+                <div
+                  key={i}
+                  ref={i === messages.length - 1 ? lastMsgRef : null}
+                  className={`flex items-end gap-2 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                >
+                  {msg.role === 'assistant' && (
+                    <div className="neo-chip-gradient mb-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 border-black/80 text-xs text-white">
+                      🔮
+                    </div>
+                  )}
+
+                  <div className={`max-w-[82%] flex flex-col gap-1 ${msg.role === 'user' ? 'items-end' : 'items-start'}`}>
+                    <div
+                      className={`whitespace-pre-wrap border-2 border-black/80 px-4 py-3 text-sm leading-relaxed ${
+                        msg.role === 'user'
+                          ? 'neo-chip-gradient rounded-2xl rounded-br-md text-white shadow-[0_4px_0_0_rgba(0,0,0,0.22)]'
+                          : 'rounded-2xl rounded-bl-md bg-white text-[#131319] shadow-[0_4px_0_0_rgba(0,0,0,0.12)]'
+                      }`}
+                    >
+                      {msg.role === 'assistant' && i === 0 && !isTypingDone ? (
+                        <>
+                          {typedText}
+                          <span className="ml-0.5 inline-block h-4 w-0.5 animate-pulse bg-black/80 align-middle" />
+                        </>
+                      ) : (
+                        msg.content
+                      )}
+                    </div>
+
+                    {msg.role === 'assistant' && i > 0 && (
+                      <div className="flex gap-3 px-1">
+                        <button
+                          onClick={() => copyMessage(msg.content, i)}
+                          className="text-xs font-semibold text-black/45 transition-colors hover:text-black/70"
+                        >
+                          {copiedIndex === i ? '✓ Copied' : 'Copy'}
+                        </button>
+                        <button
+                          onClick={() => shareMessage(msg.content)}
+                          className="text-xs font-semibold text-black/45 transition-colors hover:text-black/70"
+                        >
+                          {shared ? '✓ Shared' : 'Share'}
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))}
+
+              {isLoading && (
+                <div className="flex items-end gap-2 justify-start">
+                  <div className="neo-chip-gradient mb-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 border-black/80 text-xs text-white">
+                    🔮
+                  </div>
+                  <div className="rounded-2xl rounded-bl-md border-2 border-black/80 bg-white px-4 py-3 shadow-[0_4px_0_0_rgba(0,0,0,0.12)]">
+                    <div className="flex h-4 items-center gap-1">
+                      <span className="h-2 w-2 animate-bounce rounded-full bg-black/45" style={{ animationDelay: '0ms' }} />
+                      <span className="h-2 w-2 animate-bounce rounded-full bg-black/45" style={{ animationDelay: '150ms' }} />
+                      <span className="h-2 w-2 animate-bounce rounded-full bg-black/45" style={{ animationDelay: '300ms' }} />
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              <div ref={bottomRef} />
+
+              {!isLoading && (
+                <div className="mt-2 flex items-end gap-2 justify-end">
+                  <textarea
+                    ref={textareaRef}
+                    value={input}
+                    onChange={handleInput}
+                    onKeyDown={handleKeyDown}
+                    placeholder="Tell me your dream..."
+                    className={`resize-none overflow-hidden rounded-2xl rounded-br-md border-2 border-black/80 px-4 py-2.5 text-sm text-[#111217] placeholder:text-black/40 outline-none transition-all ${
+                      isLanding ? 'w-[88%] bg-white' : 'w-[72%] bg-white'
+                    }`}
+                    style={{ minHeight: '44px', maxHeight: '120px' }}
+                  />
                   <button
-                    onClick={() => copyMessage(msg.content, i)}
-                    className="text-white/35 hover:text-white/60 text-xs transition-colors"
+                    onClick={sendMessage}
+                    disabled={!input.trim()}
+                    className="neo-chip-gradient flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 border-black/80 text-base text-white transition-opacity disabled:cursor-not-allowed disabled:opacity-35"
                   >
-                    {copiedIndex === i ? '✓ Copied' : 'Copy'}
+                    ✨
                   </button>
-                  <button
-                    onClick={() => shareMessage(msg.content)}
-                    className="text-white/35 hover:text-white/60 text-xs transition-colors"
-                  >
-                    {shared ? '✓ Shared' : 'Share'}
-                  </button>
+                </div>
+              )}
+
+              {isLanding && !isLoading && (
+                <div className="pt-4">
+                  <p className="mb-3 text-center text-xs font-semibold text-black/55">Quick symbols</p>
+                  <div className="grid grid-cols-3 gap-2">
+                    {dreamCategories.map((cat) => (
+                      <button
+                        key={cat.keyword}
+                        onClick={() => setInput(cat.keyword)}
+                        className="rounded-2xl border-2 border-black/80 bg-white p-2.5 text-center transition-transform hover:-translate-y-0.5"
+                      >
+                        <div className="mb-1 text-xl">{cat.emoji}</div>
+                        <div className="text-xs font-semibold text-black/75">{cat.label}</div>
+                      </button>
+                    ))}
+                  </div>
                 </div>
               )}
             </div>
           </div>
-        ))}
+        </section>
 
-        {/* Typing indicator */}
-        {isLoading && (
-          <div className="flex items-end gap-2 justify-start">
-            <div className="text-xl crystal-glow mb-1 shrink-0">🔮</div>
-            <div className="bg-white/10 backdrop-blur-sm border border-white/10 px-4 py-3 rounded-2xl rounded-bl-md">
-              <div className="flex gap-1 items-center h-4">
-                <span className="w-2 h-2 bg-white/50 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                <span className="w-2 h-2 bg-white/50 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                <span className="w-2 h-2 bg-white/50 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
-              </div>
-            </div>
-          </div>
-        )}
-
-        <div ref={bottomRef} />
-
-        {/* Inline input */}
-        {!isLoading && (
-          <div className="flex items-end gap-2 justify-end mt-2">
-            <textarea
-              ref={textareaRef}
-              value={input}
-              onChange={handleInput}
-              onKeyDown={handleKeyDown}
-              placeholder="Tell me..."
-              className={`${
-                isLanding
-                  ? 'w-[88%] input-amber-glow border-amber-300/70'
-                  : 'w-[72%] bg-amber-50/90 border-amber-200/50 focus:border-amber-400'
-              } border rounded-2xl rounded-br-md px-4 py-2.5 text-gray-900 text-sm placeholder:text-amber-900/50 resize-none outline-none transition-all overflow-hidden`}
-              style={{ minHeight: '44px', maxHeight: '120px' }}
-            />
-            <button
-              onClick={sendMessage}
-              disabled={!input.trim()}
-              className="w-10 h-10 rounded-full bg-amber-600 hover:bg-amber-500 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center text-base transition-colors shrink-0"
-            >
-              🔮
-            </button>
-          </div>
-        )}
-
-        {/* Dream category cards */}
-        {isLanding && !isLoading && (
-          <div className="pt-4 animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
-            <p className="text-white/50 text-xs text-center mb-3">What did you dream about?</p>
-            <div className="grid grid-cols-3 gap-2">
-              {dreamCategories.map((cat) => (
-                <button
-                  key={cat.keyword}
-                  onClick={() => setInput(cat.keyword)}
-                  className="dream-category-card text-center"
-                >
-                  <div className="text-2xl mb-1">{cat.emoji}</div>
-                  <div className="text-amber-50/80 text-xs font-medium">{cat.label}</div>
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* Landing-only sections */}
-      {isLanding && (
-        <>
-          {/* User reviews */}
-          <div className="px-6 pb-8 animate-fade-in-up" style={{ animationDelay: '0.7s' }}>
-            <div className="text-center">
-              <p className="text-white/40 text-xs mb-3">User reviews</p>
-              <div className="inline-block px-6 py-4 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 min-h-[72px]">
+        {isLanding && (
+          <section className="mt-6 grid gap-4 lg:grid-cols-2">
+            <div className="rounded-[24px] border-2 border-black/85 bg-[#f4f4f8] p-5 shadow-[0_6px_0_0_rgba(0,0,0,0.18)]">
+              <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-black/50">User reviews</p>
+              <div className="rounded-2xl border-2 border-black/80 bg-white p-4">
                 <div className={reviewFading ? 'review-exit' : 'review-enter'}>
-                  <div className="text-amber-300 text-sm mb-1">
+                  <div className="mb-1 text-sm text-[#ff2a83]">
                     {'★'.repeat(reviews[reviewIndex].stars)}{'☆'.repeat(5 - reviews[reviewIndex].stars)}
                   </div>
-                  <p className="text-white/80 text-sm">&ldquo;{reviews[reviewIndex].text}&rdquo;</p>
+                  <p className="text-sm font-semibold text-black/80">&ldquo;{reviews[reviewIndex].text}&rdquo;</p>
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* SEO keywords */}
-          <div className="text-center px-6 pt-4 pb-40 animate-fade-in-up" style={{ animationDelay: '0.9s' }}>
-            <h2 className="text-lg font-bold mb-5 text-white/80">Popular Dream Meanings</h2>
-            <div className="grid grid-cols-2 gap-2">
-              {dreamKeywords.map((item, i) => (
-                <Link
-                  key={item.slug}
-                  href={`/dream/${item.slug}`}
-                  className="flex items-center gap-2 px-3 py-2.5 rounded-lg bg-amber-900/15 hover:bg-amber-800/25 border border-amber-200/20 hover:border-amber-200/40 text-amber-50/90 transition-all duration-300 text-xs font-medium backdrop-blur-sm"
-                >
-                  {i < 3 && <span className="text-sm">{['🥇', '🥈', '🥉'][i]}</span>}
-                  <span>{getHomeAnchorText(item.name, i)}</span>
-                </Link>
-              ))}
+            <div className="rounded-[24px] border-2 border-black/85 bg-[#f4f4f8] p-5 shadow-[0_6px_0_0_rgba(0,0,0,0.18)]">
+              <h2 className="mb-4 text-lg font-bold text-black/85">Popular Dream Meanings</h2>
+              <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                {dreamKeywords.map((item, i) => (
+                  <Link
+                    key={item.slug}
+                    href={`/dream/${item.slug}`}
+                    className="flex items-center gap-2 rounded-xl border-2 border-black/80 bg-white px-3 py-2 text-xs font-semibold text-black/80 transition-transform hover:-translate-y-0.5"
+                  >
+                    {i < 3 && <span>{['🥇', '🥈', '🥉'][i]}</span>}
+                    <span>{getHomeAnchorText(item.name, i)}</span>
+                  </Link>
+                ))}
+              </div>
             </div>
-          </div>
-        </>
-      )}
+          </section>
+        )}
+      </div>
     </div>
   )
 }
