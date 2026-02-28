@@ -201,8 +201,22 @@ export default function Home() {
             </div>
 
             <div className="justify-self-start rounded-[26px] border-2 border-black/85 bg-[#f7f7fb] p-4 shadow-[0_6px_0_0_rgba(0,0,0,0.15)] lg:justify-self-end">
-              <div className="neo-chip-gradient flex h-[124px] w-[124px] items-center justify-center rounded-full border-2 border-black/80 text-5xl text-white">
-                ✦
+              <div className="neo-chip-gradient flex h-[124px] w-[124px] items-center justify-center rounded-full border-2 border-black/80">
+                <svg viewBox="0 0 120 120" className="h-[88px] w-[88px]" role="img" aria-label="Dream icon">
+                  <path
+                    d="M66 24c-16 0-29 13-29 29s13 29 29 29c7 0 14-2 19-7-5 10-16 17-29 17-21 0-38-17-38-38s17-38 38-38c13 0 24 7 29 17-5-4-12-7-19-7z"
+                    fill="white"
+                  />
+                  <circle cx="90" cy="30" r="4" fill="white" />
+                  <circle cx="83" cy="39" r="2.5" fill="white" />
+                  <circle cx="95" cy="44" r="2" fill="white" />
+                  <g fill="white">
+                    <circle cx="53" cy="84" r="10" />
+                    <circle cx="66" cy="81" r="13" />
+                    <circle cx="79" cy="84" r="10" />
+                    <rect x="45" y="84" width="44" height="10" rx="5" />
+                  </g>
+                </svg>
               </div>
             </div>
           </div>
