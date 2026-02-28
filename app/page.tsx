@@ -26,32 +26,17 @@ const reviews = [
   { text: 'I check every morning lol', stars: 4 },
 ]
 
-const heroReviewCards = [
-  {
-    text: 'It named the exact issue I was avoiding. Weirdly accurate.',
-    author: 'Mia, NYC',
-    stars: 5,
-  },
-  {
-    text: 'I expected fluff. Instead I got a clear next step.',
-    author: 'Jordan, Austin',
-    stars: 5,
-  },
-  {
-    text: 'The interpretation was short, direct, and painfully on point.',
-    author: 'Sam, Seattle',
-    stars: 5,
-  },
-  {
-    text: 'Feels like talking to a friend who sees the full picture.',
-    author: 'Avery, Chicago',
-    stars: 4,
-  },
-  {
-    text: 'I pasted my dream in 10 seconds and got real insight back.',
-    author: 'Taylor, Boston',
-    stars: 5,
-  },
+const subconsciousSignals = [
+  'Your mind keeps replaying one conversation because it still needs a boundary.',
+  "That recurring dream image usually means you've delayed a decision too long.",
+  'You are not confused. You already know which option feels lighter in your body.',
+  "The fear in the dream is old. The choice in front of you is new.",
+  "You're trying to control the outcome when your next step is what needs control.",
+  'Your dream intensity rises when your real-life honesty drops.',
+  'You are tired because your role and your real need are out of sync.',
+  'The symbol repeats when your intuition is being ignored in daylight.',
+  'You are carrying responsibility that was never fully yours.',
+  'The subconscious keeps sending the same note: simplify, then decide.',
 ]
 
 function getHomeAnchorText(name: string, index: number): string {
@@ -77,7 +62,8 @@ export default function Home() {
   const [reviewIndex, setReviewIndex] = useState(0)
   const [reviewFading, setReviewFading] = useState(false)
   const [todayCount, setTodayCount] = useState(0)
-  const [heroReviewIndex, setHeroReviewIndex] = useState(0)
+  const [signalIndex, setSignalIndex] = useState(0)
+  const [todayLabel, setTodayLabel] = useState('')
   const bottomRef = useRef<HTMLDivElement>(null)
   const lastMsgRef = useRef<HTMLDivElement>(null)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
@@ -132,7 +118,16 @@ export default function Home() {
   }, [])
 
   useEffect(() => {
-    setHeroReviewIndex(Math.floor(Math.random() * heroReviewCards.length))
+    const now = new Date()
+    setTodayLabel(
+      new Intl.DateTimeFormat('en-US', {
+        weekday: 'short',
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric',
+      }).format(now)
+    )
+    setSignalIndex(Math.floor(Math.random() * subconsciousSignals.length))
   }, [])
 
   useEffect(() => {
@@ -235,17 +230,11 @@ export default function Home() {
 
             <div className="justify-self-start rounded-[26px] border-2 border-black/85 bg-[#f9faf2] p-4 shadow-[0_6px_0_0_rgba(0,0,0,0.15)] lg:justify-self-end">
               <div className="w-[210px] rounded-2xl border-2 border-black/80 bg-white p-3 shadow-[0_4px_0_0_rgba(0,0,0,0.12)]">
-                <p className="text-[10px] font-semibold uppercase tracking-wide text-black/45">Live user note</p>
+                <p className="text-[10px] font-semibold uppercase tracking-wide text-black/45">Today&apos;s subconscious signal</p>
+                <p className="mt-1 text-[11px] font-medium text-[#0f766e]">{todayLabel || 'Today'}</p>
                 <p className="mt-1.5 text-xs font-semibold leading-relaxed text-black/80">
-                  &ldquo;{heroReviewCards[heroReviewIndex].text}&rdquo;
+                  {subconsciousSignals[signalIndex]}
                 </p>
-                <div className="mt-2 flex items-center justify-between">
-                  <p className="text-[11px] text-black/55">{heroReviewCards[heroReviewIndex].author}</p>
-                  <p className="text-[11px] text-[#ff2a83]">
-                    {'★'.repeat(heroReviewCards[heroReviewIndex].stars)}
-                    {'☆'.repeat(5 - heroReviewCards[heroReviewIndex].stars)}
-                  </p>
-                </div>
               </div>
             </div>
           </div>
