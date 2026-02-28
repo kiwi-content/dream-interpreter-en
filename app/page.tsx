@@ -26,6 +26,34 @@ const reviews = [
   { text: 'I check every morning lol', stars: 4 },
 ]
 
+const heroReviewCards = [
+  {
+    text: 'It named the exact issue I was avoiding. Weirdly accurate.',
+    author: 'Mia, NYC',
+    stars: 5,
+  },
+  {
+    text: 'I expected fluff. Instead I got a clear next step.',
+    author: 'Jordan, Austin',
+    stars: 5,
+  },
+  {
+    text: 'The interpretation was short, direct, and painfully on point.',
+    author: 'Sam, Seattle',
+    stars: 5,
+  },
+  {
+    text: 'Feels like talking to a friend who sees the full picture.',
+    author: 'Avery, Chicago',
+    stars: 4,
+  },
+  {
+    text: 'I pasted my dream in 10 seconds and got real insight back.',
+    author: 'Taylor, Boston',
+    stars: 5,
+  },
+]
+
 function getHomeAnchorText(name: string, index: number): string {
   const topic = name.toLowerCase().includes('dream') ? name.toLowerCase() : `${name.toLowerCase()} dream`
   const variants = [
@@ -49,6 +77,7 @@ export default function Home() {
   const [reviewIndex, setReviewIndex] = useState(0)
   const [reviewFading, setReviewFading] = useState(false)
   const [todayCount, setTodayCount] = useState(0)
+  const [heroReviewIndex, setHeroReviewIndex] = useState(0)
   const bottomRef = useRef<HTMLDivElement>(null)
   const lastMsgRef = useRef<HTMLDivElement>(null)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
@@ -100,6 +129,10 @@ export default function Home() {
       }, 500)
     }, 4000)
     return () => clearInterval(timer)
+  }, [])
+
+  useEffect(() => {
+    setHeroReviewIndex(Math.floor(Math.random() * heroReviewCards.length))
   }, [])
 
   useEffect(() => {
@@ -201,22 +234,18 @@ export default function Home() {
             </div>
 
             <div className="justify-self-start rounded-[26px] border-2 border-black/85 bg-[#f9faf2] p-4 shadow-[0_6px_0_0_rgba(0,0,0,0.15)] lg:justify-self-end">
-              <div className="neo-chip-gradient flex h-[124px] w-[124px] items-center justify-center rounded-full border-2 border-black/80">
-                <svg viewBox="0 0 120 120" className="h-[88px] w-[88px]" role="img" aria-label="Dream icon">
-                  <path
-                    d="M66 24c-16 0-29 13-29 29s13 29 29 29c7 0 14-2 19-7-5 10-16 17-29 17-21 0-38-17-38-38s17-38 38-38c13 0 24 7 29 17-5-4-12-7-19-7z"
-                    fill="white"
-                  />
-                  <circle cx="90" cy="30" r="4" fill="white" />
-                  <circle cx="83" cy="39" r="2.5" fill="white" />
-                  <circle cx="95" cy="44" r="2" fill="white" />
-                  <g fill="white">
-                    <circle cx="53" cy="84" r="10" />
-                    <circle cx="66" cy="81" r="13" />
-                    <circle cx="79" cy="84" r="10" />
-                    <rect x="45" y="84" width="44" height="10" rx="5" />
-                  </g>
-                </svg>
+              <div className="w-[210px] rounded-2xl border-2 border-black/80 bg-white p-3 shadow-[0_4px_0_0_rgba(0,0,0,0.12)]">
+                <p className="text-[10px] font-semibold uppercase tracking-wide text-black/45">Live user note</p>
+                <p className="mt-1.5 text-xs font-semibold leading-relaxed text-black/80">
+                  &ldquo;{heroReviewCards[heroReviewIndex].text}&rdquo;
+                </p>
+                <div className="mt-2 flex items-center justify-between">
+                  <p className="text-[11px] text-black/55">{heroReviewCards[heroReviewIndex].author}</p>
+                  <p className="text-[11px] text-[#ff2a83]">
+                    {'★'.repeat(heroReviewCards[heroReviewIndex].stars)}
+                    {'☆'.repeat(5 - heroReviewCards[heroReviewIndex].stars)}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
