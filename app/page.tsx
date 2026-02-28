@@ -193,14 +193,11 @@ export default function Home() {
                 ✨ Free forever · No sign-up
               </div>
               <h1 className="font-neo-serif text-[44px] leading-[0.95] tracking-[-0.03em] text-[#12141a] sm:text-[72px] lg:text-[94px]">
-                Dream Oracle
+                What is your
                 <br />
-                AI
+                dream telling you?
               </h1>
-              <p className="mt-5 max-w-3xl text-[24px] font-semibold leading-[1.2] text-[#1c1f28] sm:text-[40px]">
-                The smart dream assistant built right in your browser. Ask anything, get sharp meanings, keep your
-                story private.
-              </p>
+              <div className="mt-5 text-6xl sm:text-7xl">🔮</div>
             </div>
 
             <div className="justify-self-start rounded-[26px] border-2 border-black/85 bg-[#f7f7fb] p-4 shadow-[0_6px_0_0_rgba(0,0,0,0.15)] lg:justify-self-end">
