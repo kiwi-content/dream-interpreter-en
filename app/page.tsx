@@ -232,12 +232,12 @@ export default function Home() {
           )}
         </section>
 
-        <section className="mt-6 overflow-hidden rounded-[30px] border-2 border-black/85 bg-[#f3faf8] shadow-[0_8px_0_0_rgba(0,0,0,0.2)]">
+        <section className="mt-6 overflow-hidden rounded-[30px] border-2 border-black/85 bg-[#f8f6ef] shadow-[0_8px_0_0_rgba(0,0,0,0.2)]">
           <div className="flex items-center justify-between border-b-2 border-black/80 px-4 py-2.5 sm:px-6">
             <div className="flex items-center gap-2">
-              <span className="h-3 w-3 rounded-full border border-black/80 bg-[#0d9488]" />
-              <span className="h-3 w-3 rounded-full border border-black/80 bg-[#2563eb]" />
-              <span className="h-3 w-3 rounded-full border border-black/80 bg-[#d97706]" />
+              <span className="h-3 w-3 rounded-full border border-black/80 bg-[#ff5f57]" />
+              <span className="h-3 w-3 rounded-full border border-black/80 bg-[#ffbd2e]" />
+              <span className="h-3 w-3 rounded-full border border-black/80 bg-[#28c840]" />
             </div>
             <p className="text-xs font-semibold text-black/70">Dream Console</p>
           </div>
@@ -248,7 +248,7 @@ export default function Home() {
               aria-hidden="true"
               style={{
                 backgroundImage:
-                  'linear-gradient(to right, rgba(15,118,110,0.09) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px)',
+                  'linear-gradient(to right, rgba(0,0,0,0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.06) 1px, transparent 1px)',
                 backgroundSize: '30px 30px',
               }}
             />
@@ -323,6 +323,9 @@ export default function Home() {
 
               {!isLoading && (
                 <div className="mt-2 flex items-end gap-2 justify-end">
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 border-black/80 bg-white text-base shadow-[0_2px_0_0_rgba(0,0,0,0.15)]">
+                    🧑
+                  </div>
                   <textarea
                     ref={textareaRef}
                     value={input}
@@ -330,7 +333,7 @@ export default function Home() {
                     onKeyDown={handleKeyDown}
                     placeholder="Tell me your dream..."
                     className={`resize-none overflow-hidden rounded-2xl rounded-br-md border-2 border-black/80 px-4 py-2.5 text-sm text-[#111217] placeholder:text-black/40 outline-none transition-all ${
-                      isLanding ? 'w-[88%] bg-white' : 'w-[72%] bg-white'
+                      isLanding ? 'w-[70%] bg-white sm:w-[82%]' : 'w-[58%] bg-white sm:w-[66%]'
                     }`}
                     style={{ minHeight: '44px', maxHeight: '120px' }}
                   />
