@@ -158,8 +158,17 @@ export default function Home() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ dream: userMessage }),
       })
-      const data = await response.json()
-      setMessages((prev) => [...prev, { role: 'assistant', content: data.interpretation }])
+      const data = await response.json().catch(() => null)
+      const interpretation =
+        data && typeof data === 'object' && 'interpretation' in data && typeof data.interpretation === 'string'
+          ? data.interpretation
+          : null
+
+      if (!response.ok || !interpretation) {
+        throw new Error('interpretation request failed')
+      }
+
+      setMessages((prev) => [...prev, { role: 'assistant', content: interpretation }])
     } catch {
       setMessages((prev) => [...prev, { role: 'assistant', content: "Can't see it right now. Try again." }])
     } finally {
@@ -181,19 +190,28 @@ export default function Home() {
   }
 
   const copyMessage = async (content: string, index: number) => {
-    await navigator.clipboard.writeText(content)
-    setCopiedIndex(index)
-    setTimeout(() => setCopiedIndex(null), 2000)
+    try {
+      await navigator.clipboard.writeText(content)
+      setCopiedIndex(index)
+      setTimeout(() => setCopiedIndex(null), 2000)
+    } catch {
+      // Ignore clipboard permission failures to keep UI responsive.
+    }
   }
 
   const shareMessage = async (content: string) => {
     const url = window.location.href
-    if (navigator.share) {
-      await navigator.share({ title: 'My Dream Interpretation', text: content, url })
-    } else {
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: 'My Dream Interpretation', text: content, url })
+        return
+      }
+
       await navigator.clipboard.writeText(url)
       setShared(true)
       setTimeout(() => setShared(false), 2000)
+    } catch {
+      // Ignore user-cancelled share dialogs and clipboard failures.
     }
   }
 

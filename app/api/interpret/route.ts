@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 
 export async function POST(request: NextRequest) {
   try {
-    const { dream } = await request.json()
+    const body = await request.json().catch(() => null)
+    const dream = body && typeof body === 'object' && 'dream' in body && typeof body.dream === 'string' ? body.dream.trim() : ''
 
     if (!dream) {
       return NextResponse.json({ error: 'Please describe your dream.' }, { status: 400 })
@@ -75,8 +76,31 @@ ${dream}`,
 
       if (!response.ok) throw new Error(`API returned ${response.status}`)
 
-      const data = await response.json()
-      return NextResponse.json({ interpretation: data.candidates[0].content.parts[0].text })
+      const data = await response.json().catch(() => null)
+      const interpretation =
+        data &&
+        typeof data === 'object' &&
+        'candidates' in data &&
+        Array.isArray(data.candidates) &&
+        data.candidates[0] &&
+        typeof data.candidates[0] === 'object' &&
+        'content' in data.candidates[0] &&
+        data.candidates[0].content &&
+        typeof data.candidates[0].content === 'object' &&
+        'parts' in data.candidates[0].content &&
+        Array.isArray(data.candidates[0].content.parts) &&
+        data.candidates[0].content.parts[0] &&
+        typeof data.candidates[0].content.parts[0] === 'object' &&
+        'text' in data.candidates[0].content.parts[0] &&
+        typeof data.candidates[0].content.parts[0].text === 'string'
+          ? data.candidates[0].content.parts[0].text.trim()
+          : ''
+
+      if (!interpretation) {
+        throw new Error('empty interpretation')
+      }
+
+      return NextResponse.json({ interpretation })
     } catch {
       return NextResponse.json({ interpretation: getDemoInterpretation(dream) })
     }

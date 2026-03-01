@@ -25,8 +25,17 @@ export default function DreamInput({ dreamName }: { dreamName: string }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ dream: input.trim() }),
       })
-      const data = await response.json()
-      setResult(data.interpretation)
+      const data = await response.json().catch(() => null)
+      const interpretation =
+        data && typeof data === 'object' && 'interpretation' in data && typeof data.interpretation === 'string'
+          ? data.interpretation
+          : null
+
+      if (!response.ok || !interpretation) {
+        throw new Error('interpretation request failed')
+      }
+
+      setResult(interpretation)
     } catch {
       setResult('Something went wrong. Please try again in a moment.')
     } finally {
