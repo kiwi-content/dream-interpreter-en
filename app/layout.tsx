@@ -2,7 +2,7 @@ import './globals.css'
 import type { Metadata, Viewport } from 'next'
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://dream-interpreter-en.vercel.app'),
+  metadataBase: new URL('https://dream-free-en.vercel.app'),
 
   title: {
     default: 'Free Dream Interpreter | What Did Your Dream Mean?',
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Free Dream Interpreter | What Did Your Dream Mean?',
     description: 'AI-powered dream interpretation. Instant, personalized analysis. Free.',
-    url: 'https://dream-interpreter-en.vercel.app',
+    url: 'https://dream-free-en.vercel.app',
     siteName: 'Dream Interpreter',
     locale: 'en_US',
     type: 'website',
@@ -53,7 +53,7 @@ const jsonLd = {
   '@type': 'WebApplication',
   name: 'Free Dream Interpreter',
   description: "AI-powered dream interpretation. Get instant analysis of your dream's hidden meaning.",
-  url: 'https://dream-interpreter-en.vercel.app',
+  url: 'https://dream-free-en.vercel.app',
   applicationCategory: 'LifestyleApplication',
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
 }
